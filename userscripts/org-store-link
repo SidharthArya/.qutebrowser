@@ -1,0 +1,6 @@
+#!/bin/sh
+OUT="org-protocol:/store-link?url=$QUTE_URL&title=$QUTE_TITLE"
+WINDOW=$(xdo id -a Org)
+bspc node $WINDOW -g hidden=off
+xdo activate $WINDOW
+xdg-open "$OUT"

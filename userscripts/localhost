@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -z $QUTE_COUNT ];
+then
+    QUTE_COUNT=8080
+fi
+
+echo open localhost:$QUTE_COUNT > $QUTE_FIFO

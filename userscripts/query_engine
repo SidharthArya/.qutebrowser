@@ -1,0 +1,28 @@
+#!/bin/bash
+arg1=$1
+arg2=$2
+
+if ! [ -z $arg2 ];
+then
+    QUTE_SELECTED_TEXT="$(echo | rofi -dmenu -theme dmenu -font 'Noto Sans 14' -p $arg1:)"
+fi
+case $arg1 in
+    dict)
+
+        echo "open -t http://www.dict.cc/?s=$QUTE_SELECTED_TEXT" >> "$QUTE_FIFO"
+        ;;
+    google)
+        echo "open -t http://www.google.com/search?q=$QUTE_SELECTED_TEXT" >> "$QUTE_FIFO"
+        ;;
+    youtube)
+        echo "open -t http://www.youtube.com/search?q=$QUTE_SELECTED_TEXT" >> "$QUTE_FIFO"
+        ;;
+    github)
+        if echo $QUTE_SELECTED_TEXT | grep /
+        then
+            echo "open -t http://github.com/$QUTE_SELECTED_TEXT" >> "$QUTE_FIFO"
+        else
+            echo "open -t http://github.com/search?q=$QUTE_SELECTED_TEXT" >> "$QUTE_FIFO"
+        fi
+        ;;
+esac

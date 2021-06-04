@@ -1,0 +1,6 @@
+#!/bin/sh
+export IFS=$'\n'
+pkill -f qute_speak || {
+        ~/.local/bin/gtts-cli "$QUTE_SELECTED_TEXT" > /tmp/qute_speak.mp3
+        mpv /tmp/qute_speak.mp3 
+} 

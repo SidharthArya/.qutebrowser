@@ -1,0 +1,8 @@
+#!/bin/sh
+TEMPLATE="$1"
+OUT="org-protocol:/capture?template=$TEMPLATE&url=$QUTE_URL&title=$QUTE_TITLE&body=$QUTE_SELECTED_TEXT"
+WINDOW=$(xdo id -a Org)
+bspc node $WINDOW -g hidden=off
+xdo activate $WINDOW
+xdg-open "$OUT"
+notify-send "$OUT"

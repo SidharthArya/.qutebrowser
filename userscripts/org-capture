@@ -1,0 +1,9 @@
+#!/bin/sh
+TEMPLATE="$1"
+QUTE_URL=$(echo $QUTE_URL |python -c "import sys;from urllib.parse import quote;print(quote(sys.stdin.readline()))")
+OUT="org-protocol:/capture?template=$TEMPLATE&url=$QUTE_URL&title=$QUTE_TITLE&body=$QUTE_SELECTED_TEXT"
+WINDOW=$(xdo id -a Org)
+bspc node $WINDOW -g hidden=off
+xdo activate $WINDOW
+xdg-open "$OUT"
+# notify-send "$OUT"
