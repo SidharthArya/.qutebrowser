@@ -1,8 +1,9 @@
 #!/bin/bash
 
-if [ -z $QUTE_COUNT ];
+if [ $1 == 'list' ];
 then
-    QUTE_COUNT=8080
+    PORTS="$(ss -nltp | tail -n +2 |  awk '{print $4}' | awk -F: '{print $2}')"
+    QUTE_COUNT=$(echo "$PORTS" | dmenu )
 fi
 
-echo open localhost:$QUTE_COUNT > $QUTE_FIFO
+echo open -t localhost:${QUTE_COUNT:-8080} > $QUTE_FIFO
