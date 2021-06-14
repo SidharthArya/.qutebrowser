@@ -8,16 +8,14 @@ then
 fi
 
 ENTER=false
-case $1 in
+ARG1=$1
+case $ARG1 in
 	pass)
 		OUT=$(pass "$ROI" | head -n 1)
 		ENTER=true
 		;;
-	user)
-		OUT=$(pass "$ROI" | grep user | awk '{print $2}')
-		;;
-	pin)
-		OUT=$(pass "$ROI" | grep pin | awk '{print $2}')
+	*)
+		OUT=$(pass "$ROI" | grep $ARG1 | awk '{print $2}')
 		;;
 esac
 

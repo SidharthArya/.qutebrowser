@@ -1,7 +1,17 @@
 #!/bin/sh
-TEMPLATE="$1"
+PROTOCOL="$1"
+TEMPLATE="$2"
 QUTE_URL=$(echo $QUTE_URL |python -c "import sys;from urllib.parse import quote;print(quote(sys.stdin.readline()))")
-OUT="org-protocol:/capture?template=$TEMPLATE&url=$QUTE_URL&title=$QUTE_TITLE&body=$QUTE_SELECTED_TEXT"
+
+OUT="org-protocol:/$PROTOCOL"
+OUT+="?"
+if [[ "$PROTOCOL" == "capture" ]];
+then
+   OUT+="template=$TEMPLATE"
+   OUT+="&"
+fi
+   
+OUT+="url=$QUTE_URL&title=$QUTE_TITLE&body=$QUTE_SELECTED_TEXT"
 WINDOW=$(xdo id -a Org)
 bspc node $WINDOW -g hidden=off
 xdo activate $WINDOW
