@@ -1,7 +1,9 @@
 #!/bin/sh
 PROTOCOL="$1"
 TEMPLATE="$2"
-QUTE_URL=$(echo $QUTE_URL |python -c "import sys;from urllib.parse import quote;print(quote(sys.stdin.readline()))")
+QUTE_URL=$(echo $QUTE_URL |python -c "import sys;from urllib.parse import quote;print(quote(sys.stdin.readline()))" | sed 's/\%0A//g')
+QUTE_TITLE=$(echo $QUTE_TITLE |python -c "import sys;from urllib.parse import quote;print(quote(sys.stdin.readline()))" | sed 's/\%0A//g')
+QUTE_SELECTED_TEXT=$(echo $QUTE_SELECTED_TEXT |python -c "import sys;from urllib.parse import quote;print(quote(sys.stdin.readline()))" | sed 's/\%0A//g')
 
 OUT="org-protocol:/$PROTOCOL"
 OUT+="?"

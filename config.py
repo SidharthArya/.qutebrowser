@@ -221,7 +221,7 @@ c.tabs.show = 'multiple'
 # the search engine name to the search term, e.g. `:open google
 # qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'aur': 'https://aur.archlinux.org/packages/?O=0&K={}', 'DEFAULT': 'https://www.google.com/search?q={}', 'anime': 'https://9anime.city/search/?keyword={}', 't': 'https://twitter.com/search?q={}&src=typed_query', 'a': 'https://www.amazon.in/s?k={}', 'arx': 'https://arxiv.org/search/?query={}&searchtype=all', 'sch': 'https://scholar.google.com/scholar?hl=en&q={}', 'gh': 'https://github.com/search?q={}', 'pdf': 'https://www.pdfdrive.com/search?q={}', 'pt': 'https://pytorch.org/docs/stable/search.html?q={}&check_keywords=yes&area=default', 'pip': 'https://pypi.org/search/?q={}', 'tf': 'https://www.tensorflow.org/s/results?q={}', 'y': 'https://www.youtube.com/search?q={}', 'd': 'https://duckduckgo.com/?q={}', 'appimage': 'https://www.appimagehub.com/find?search={}'}
+c.url.searchengines = {'aur': 'https://aur.archlinux.org/packages/?O=0&K={}','g': 'https://www.google.com/search?q={}', 'DEFAULT': 'https://www.google.com/search?q={}', 'br': 'https://search.brave.com/search?q={}', 'anime': 'https://9anime.city/search/?keyword={}', 't': 'https://twitter.com/search?q={}&src=typed_query', 'a': 'https://www.amazon.in/s?k={}', 'arx': 'https://arxiv.org/search/?query={}&searchtype=all', 'sch': 'https://scholar.google.com/scholar?hl=en&q={}', 'gh': 'https://github.com/search?q={}', 'pdf': 'https://www.pdfdrive.com/search?q={}', 'pt': 'https://pytorch.org/docs/stable/search.html?q={}&check_keywords=yes&area=default', 'pip': 'https://pypi.org/search/?q={}', 'tf': 'https://www.tensorflow.org/s/results?q={}', 'y': 'https://www.youtube.com/search?q={}', 'd': 'https://duckduckgo.com/?q={}', 'appimage': 'https://www.appimagehub.com/find?search={}', "b": "https://www.goodreads.com/search?q={}", "np": "https://numpy.org/doc/stable/search.html?q={}", "github-pv": "https://profile-summary-for-github.com/user/{}", "k": "https://www.kaggle.com/search?q={}", "sk": "https://scikit-learn.org/stable/search.html?q={}","pd": "https://pandas.pydata.org/docs/search.html?q={}", "m": "https://www.google.com/maps/search/{}", "maven": "https://search.maven.org/search?q={}", "npm": "https://www.npmjs.com/search?q={}"}
 
 # Page(s) to open at the start.
 # Type: List of FuzzyUrl, or FuzzyUrl
@@ -242,7 +242,7 @@ c.fonts.default_family = 'Noto Sans'
 # either a float value with a "pt" suffix, or an integer value with a
 # "px" suffix.
 # Type: String
-c.fonts.default_size = '12pt'
+c.fonts.default_size = '15pt'
 
 # Font family for standard fonts.
 # Type: FontFamily
@@ -271,20 +271,22 @@ c.fonts.web.size.default_fixed = 16
 # Bindings for normal mode
 config.bind(';P', "open javascript:location.href='org-protocol://capture?template=L&url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title)")
 config.bind('\\p', 'spawn --userscript mpv')
-config.bind('\\s', 'spawn --userscript speak')
+# config.bind('\\s', 'spawn --userscript speak')
+config.bind('\\s', 'config-source')
 config.bind('cid', 'spawn --userscript org-protocol capture Pid')
-config.bind('cis', 'spawn --userscript org-capture Pis')
-config.bind('cit', 'spawn --userscript org-capture Pit')
-config.bind('ciw', 'spawn --userscript org-capture Piw')
+config.bind('cis', 'spawn --userscript org-protocol capture Pis')
+config.bind('cit', 'spawn --userscript org-protocol capture Pit')
+config.bind('ciw', 'spawn --userscript org-protocol capture Piw')
 config.bind('cl', 'spawn --userscript org-protocol store-link')
-config.bind('cud', 'spawn --userscript org-capture Pud')
-config.bind('cus', 'spawn --userscript org-capture Pus')
-config.bind('cut', 'spawn --userscript org-capture Put')
-config.bind('cuw', 'spawn --userscript org-capture Puw')
+config.bind('cud', 'spawn --userscript org-protocol capture Pud')
+config.bind('cus', 'spawn --userscript org-protocol capture Pus')
+config.bind('cut', 'spawn --userscript org-protocol capture Put')
+config.bind('cuw', 'spawn --userscript org-protocol capture Puw')
 config.bind('zd', 'spawn --userscript query_engine dict')
 config.bind('zg', 'spawn --userscript query_engine github')
 config.bind('zp', 'spawn --userscript pass pass')
 config.bind('zP', 'spawn --userscript pass pin')
+config.bind('zt', 'spawn --userscript translate')
 config.bind('zl', 'spawn --userscript localhost list')
 config.bind('zr', 'open https://outline.com/{url}')
 config.bind('zs', 'spawn --userscript query_engine google')
@@ -294,4 +296,17 @@ config.bind('zzd', 'spawn --userscript query_engine dict 1')
 config.bind('zzg', 'spawn --userscript query_engine github 1')
 config.bind('zzs', 'spawn --userscript query_engine google 1')
 config.bind('zzy', 'spawn --userscript query_engine youtube 1')
+config.bind('se', 'spawn --userscript share.sh')
 config.bind('~', 'tab-focus last')
+
+
+# Theme
+import dracula.draw
+
+
+dracula.draw.blood(c, {
+    'spacing': {
+        'vertical': 6,
+        'horizontal': 8
+    }
+})

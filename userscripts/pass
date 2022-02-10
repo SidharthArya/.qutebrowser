@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 DOMAIN=$(echo $QUTE_URL | awk -F/ '{print $3}' | awk -F. '{print $(NF-1)"."$NF}')
-ROI=$(pass find "$DOMAIN" |tail -n +2 | tr -d "[:blank:]\/\`-" |  paste -sd '/' | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"  | sed 's/└──//g')
-echo $ROI
+ROI=$(pass find "$DOMAIN" |tail -n +2 |  perl -pe 's/^\h+//g' | tr -d "\/\`-" | perl -pe 's/^\h+//g' | perl -pe 's/\h+$//g' | paste -sd '/' | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"  | sed 's/└──//g' | perl -pe 's/\e\[[0-9;]*m//g' | sed 's/\/ /\//g' | sed 's/^ //g' )
+printf "%s" "$ROI"
 if [ -z "$ROI" ];
 then
 	exit 1
@@ -18,7 +19,7 @@ case $ARG1 in
 		OUT=$(pass "$ROI" | grep $ARG1 | awk '{print $2}')
 		;;
 esac
-
+echo "$ARG1" $ARG1
 echo mode-enter insert > $QUTE_FIFO
 echo insert-text "$OUT"  > $QUTE_FIFO
 echo "insert-text \"$OUT\""
